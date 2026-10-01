@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block title %} login_page{% endblock %}
+{% block content %}
+    <div class="login-box">
+        <h2>
+            LOGIN
+        </h2>
+        <form method="POST"  action="{{url_for('auth.login')}}">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input class="name-bx" type="text" name="username" placeholder="please enter your user name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input class="pass-bx" type="text" name="password" placeholder="please enter your password" required>
+                
+            </div>
+            <button class='log-btn' type="submit">Login</button>
+        </form>
+    </div>
+{% endblock %}

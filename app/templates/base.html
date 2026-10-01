@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %} todo_app {% endblock %}</title>
+    <!-- FIX: removed comma, added quotes around 'css/style.css' -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container1">
+            <h1>
+                MY To-Do APP
+            </h1>
+            <nav>
+                <a class="home" href="{{url_for('tasks.view_tasks')}}">Home</a>
+                <!-- FIX: changed 'sessions' to 'session' -->
+                {% if 'user' in session %}
+                    <a class="logout" href="{{url_for('auth.logout')}}">Logout</a>
+                {% else %}
+                    <!-- FIX: removed stray quote at the end -->
+                    <a class="login"   href="{{url_for('auth.login')}}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <!-- FIX: changed 'get_flashed_message' to plural 'get_flashed_messages' -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{category}}">{{message}}</div>
+                <!-- FIX: removed space between { and % -->
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}  
+        
+        {% endblock %}
+    </main>
+    <footer class="foot">
+        <p>&copy; MY flask To-DO app</p>
+    </footer>
+</body>
+</html>
